@@ -149,6 +149,10 @@ describe 'curator::job', :type => :define do
       let(:params) { { :command => 'snapshot', :repository => 'archive', :use_ssl => true, :ssl_validate => false } }
       it { should contain_cron('curator_myjob').with(:command => /--use_ssl --ssl-no-validate/) }
     end
+    context 'ssl_certificate' do
+      let(:params) { { :command => 'snapshot', :repository => 'archive', :use_ssl => true, :certificate => '/etc/ssl/local.ca.cert' } }
+      it { should contain_cron('curator_myjob').with(:command => /--certificate '\/etc\/ssl\/local\.ca\.cert'/) }
+    end
 
     context 'valid params' do
       let(:params) { { :command => 'snapshot', :repository => 'archive' } }
